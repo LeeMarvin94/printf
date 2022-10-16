@@ -1,1 +1,1 @@
- That is the first ALX group project. The team project relate on ceating our own custom printf function
+ That is the first ALX group project. The project is related on ceating our C custom printf function
