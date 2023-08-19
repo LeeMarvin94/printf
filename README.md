@@ -1,1 +1,2 @@
-This project is about making your own printf function
+ALX printf peer project
+
