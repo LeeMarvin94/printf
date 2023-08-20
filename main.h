@@ -7,9 +7,9 @@
 #include <unistd.h>
 
 /**
- * struct format_handle: a struct that store a string and a function pointer's
+ * struct format_handle - a struct that store a string and a function pointer's
  * @format: a string that contain characters
- * @function: pointer function
+ * @function: pointer functione
  */
 typedef struct format_handle
 {
