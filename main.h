@@ -1,28 +1,13 @@
-#ifndef MAIN_H
-#define MAIN_H
+#ifndef main_h
+#define main_h
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdarg.h>
-#include <unistd.h>
-
-/**
- * struct format_handle - a struct that store a string and a function pointer's
- * @format: a string that contain characters
- * @function: pointer functione
- */
-typedef struct format_handle
-{
-	char *format;
-	void (*function)(va_list args);
-} func;
-
-
-int _printf(const char *format, ...);
 int _putchar(char c);
-void print_char(va_list args);
-void print_string(va_list args);
-void print_percent(va_list args);
+int _printf(const char *format, ...);
+
+#include<stdarg.h>
+#include<stdlib.h>
+#include<stdio.h>
+
 
 
 #endif

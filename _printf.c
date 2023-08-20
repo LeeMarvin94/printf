@@ -1,73 +1,58 @@
-#include "main.h"
-/**
- * process_format -look after format specifier can run right code
- * @format: constant string
- * @args: list of arguments
- * @count: int pointer
- * @type: structure contain format and right function
- */
-void process_format(const  char *format, va_list args, int *count, func type[])
-{
-	int j;
+#include"main.h"
 
-	while (*format)
+/**
+ * _printf - produces output to a format + } =
+ * @format: a caractere string
+ *
+ * Return: Number of arguments printed
+ */
+
+int _printf(const char *format, ...)
+{
+
+	int nb_printed = 0; /*count the number of printed caracteres*/
+	int c;
+	char *str;
+	va_list argument_list;
+	va_start(argument_list, format);
+
+
+/* Handling of % specifier */
+	while (*format != 0)
 	{
 		if (*format == '%')
 		{
 			format++;
 
-			j = 0;
-			if (type[j].format == NULL)
+			if  (*format == '%')
 			{
 				_putchar('%');
-				_putchar(*format);
-				(*count) += 2;
+				nb_printed++;
 			}
-
-			while (type[j].format != NULL)
+			else if (*format == 'c')
 			{
-				if (*(type[j].format) == *format)
+				c = va_arg(argument_list, int);
+				_putchar(c);
+				nb_printed++;
+			}
+			else if (*format == 's')
+			{
+				str = va_arg(argument_list, char*);
+				while (*str)
 				{
-					type[j].function(args);
-					(*count)++;
-					break;
+					_putchar(*str);
+					str++;
+					nb_printed++;
 				}
-				j++;
 			}
 		}
 		else
 		{
 			_putchar(*format);
-			(*count)++;
+			nb_printed++;
 		}
 		format++;
 	}
+	va_end(argument_list);
+	return (nb_printed);
 }
-/**
- * _printf -function that print a given input
- * @format: a constant string
- * Return: 0 if success
- */
-int _printf(const char *format, ...)
-{
-	func type[] = {
-		{"c", print_char},
-		{"s", print_string},
-		{"%", print_percent},
-		{NULL, NULL}
-	};
-
-	int  count;
-	va_list args;
-
-	count = 0;
-
-	va_start(args, format);
-
-	process_format(format, args, &count, type);
-
-	va_end(args);
-	return (count);
-}
-
-

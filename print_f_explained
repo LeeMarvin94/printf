@@ -1,0 +1,64 @@
+     1	#include"main.h"
+       
+     2	/**
+     3	 * _printf - produces output to a format + } =
+     4	 * @format: a caractere string
+     5	 *
+     6	 * Return: Number of arguments printed
+     7	 */
+       
+     8	int _printf(const char *format, ...)
+     9	{
+       
+    10	va_list argument_list;
+    11	va_start(argument_list, format);
+    12	int nb_printed = 0; // count the number of printed caracteres
+    13	int c;
+    14	char *str;
+       
+       
+    15	/* Handling of % specifier */
+    16	while (*format != 0)
+    17	{
+    18	    if (*format == '%')
+    19	    {
+    20	        *format++;
+       
+    21	        if  (*format == '%')
+    22	        {
+    23	            _putchar('%');
+    24	            nb_printed++;
+    25	        }
+       
+    26	        else if (*format == 'c')
+    27	        {
+    28	            c = va_arg(argument_list, int); 
+    29	            _putchar(c);
+    30	            nb_printed++;
+    31	        }
+       
+    32	        else if (*format == 's') // + } =
+    33	        {
+    34	              str = va_arg(argument_list, char*);
+    35	              while (*str)
+    36	              {
+    37	                  _putchar(*str);
+    38	                  str++;
+    39	                  nb_printed++;
+    40	              }      
+    41	        }
+    42	     
+    43	    }
+    44	    else
+    45	    {
+    46	        _putchar(*format);
+    47	        nb_printed++;
+    48	    }
+       
+    49	    format++;
+    50	}
+    51	va_end(argument_list);
+       
+    52	return (nb_printed);
+       
+    53	}
