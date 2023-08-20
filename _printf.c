@@ -1,29 +1,22 @@
 #include"main.h"
-
 /**
  * _printf - produces output to a format + } =
  * @format: a caractere string
- *
  * Return: Number of arguments printed
  */
-
 int _printf(const char *format, ...)
 {
-
-	int nb_printed = 0; /*count the number of printed caracteres*/
+	int nb_printed = 0;
 	int c;
 	char *str;
 	va_list argument_list;
 	va_start(argument_list, format);
-
-
 /* Handling of % specifier */
 	while (*format != 0)
 	{
 		if (*format == '%')
 		{
 			format++;
-
 			if  (*format == '%')
 			{
 				_putchar('%');
