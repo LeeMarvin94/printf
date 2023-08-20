@@ -9,29 +9,56 @@
 
 int _printf(const char *format, ...)
 {
+
 va_list argument_list;
 va_start(argument_list, format);
-int count = 0;
-int i = 0;
+int nb_printed = 0; // count the number of printed caracteres
+int c;
+char *str;
 
-/* here I iterate through the string to the its exact length */
-while (format[i] != '\0')
-{
-i++;
-count++;
-}
 
 /* Handling of % specifier */
-for (i =0; i < count; i+)
+while (*format != 0)
 {
-if (format[i] == '%')
-{
-if  (format[i+1] == '%')
-_putchar('%');
+    if (*format == '%')
+    {
+        *format++;
+
+        if  (*format == '%')
+        {
+            _putchar('%');
+            nb_printed++;
+        }
+
+        else if (*format == 'c')
+        {
+            c = va_arg(argument_list, int); 
+            _putchar(c);
+            nb_printed++;
+        }
+
+        else if (*format == 's') //if after % is s so it's string  + } =
+        {
+              str = va_arg(argument_list, char*);//start the variable which holding the string
+              while (*str) //looping over the string to print all charaters
+              {
+                  _putchar(*str);
+                  str++;
+                  nb_printed;
+              }      
+        }
+     
+    }
+    else
+    {
+        _putchar(*format);
+        nb_printed;
+    }
+
+    format++;
 }
-}
+va_end(argument_list);
 
-
-
+return (nb_printed);
 
 }

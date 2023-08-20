@@ -5,7 +5,7 @@
 #include<stdlib.h>
 #include<stdio.h>
 
-
-
+int _putchar(char c);
+int _printf(char *format, ...);
 
 #endif
