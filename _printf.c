@@ -14,8 +14,11 @@ int _printf(const char *format, ...)
 	int c;
 	char *str;
 	va_list argument_list;
-	va_start(argument_list, format);
 
+	if (!format || (format[0] == '%' && format[1] == '\0'))
+		return (-1);
+
+	va_start(argument_list, format);
 
 /* Handling of % specifier */
 	while (*format != 0)
