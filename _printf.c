@@ -41,6 +41,8 @@ int _printf(const char *format, ...)
 					str++;
 					nb_printed++;
 				}
+				if (str == NULL)
+					return (-1);
 			}
 		}
 		else
