@@ -11,6 +11,9 @@ int _printf(const char *format, ...)
 	char *str;
 	va_list argument_list;
 
+	if (!format || (format[0] == '%' && format[1] == '\0'))
+		return (-1);
+
 	va_start(argument_list, format);
 /* Handling of % specifier */
 	while (*format != 0)
