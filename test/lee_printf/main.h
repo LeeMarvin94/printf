@@ -2,7 +2,7 @@
 #define main_h
 
 int _putchar(char c);
-//int _printf(char *format, ...);
+int _printf(const char *format, ...);
 
 #include<stdarg.h>
 #include<stdlib.h>
