@@ -37,14 +37,14 @@ while (*format != 0)
             nb_printed++;
         }
 
-        else if (*format == 's') //if after % is s so it's string  + } =
+        else if (*format == 's') // + } =
         {
-              str = va_arg(argument_list, char*);//start the variable which holding the string
-              while (*str) //looping over the string to print all charaters
+              str = va_arg(argument_list, char*);
+              while (*str)
               {
                   _putchar(*str);
                   str++;
-                  nb_printed;
+                  nb_printed++;
               }      
         }
      
@@ -52,7 +52,7 @@ while (*format != 0)
     else
     {
         _putchar(*format);
-        nb_printed;
+        nb_printed++;
     }
 
     format++;
