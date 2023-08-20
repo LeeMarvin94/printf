@@ -4,10 +4,10 @@
 int _putchar(char c);
 int _printf(const char *format, ...);
 
+
 #include<stdarg.h>
 #include<stdlib.h>
 #include<stdio.h>
-
 
 
 #endif
