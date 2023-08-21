@@ -7,8 +7,9 @@
 int _printf(const char *format, ...)
 {
 	int nb_printed = 0;
-	int c;
+	int c, num, index;
 	char *str;
+	char digits[10];
 	va_list argument_list;
 
 	if (!format || (format[0] == '%' && format[1] == '\0'))
@@ -21,8 +22,6 @@ int _printf(const char *format, ...)
 		if (*format == '%')
 		{
 			format++;
-			if (*format == ' ')
-				return (-1);
 
 			if  (*format == '%')
 			{
@@ -46,6 +45,40 @@ int _printf(const char *format, ...)
 					str++;
 					nb_printed++;
 				}
+			}
+			else if (*format == 'd' || *format == 'i')
+			{
+				num = va_arg(argument_list, int);
+
+				if (num < 0)
+				{
+					_putchar('-');
+					num = -num;
+				}
+				if (num == 0)
+				{
+					_putchar('0');
+					nb_printed++;
+					return (1);
+				}
+				index = 0;
+
+				while (num > 0)
+				{
+					digits[index++] = '0' + (num % 10);
+					num /= 10;
+				}
+				while (index > 0)
+				{
+					_putchar(digits[--index]);
+					nb_printed++;
+				}
+			}
+			else
+			{
+				_putchar('%');
+				_putchar(*format);
+				nb_printed += 2;
 			}
 		}
 		else
