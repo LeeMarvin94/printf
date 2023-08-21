@@ -23,9 +23,6 @@ int _printf(const char *format, ...)
 		{
 			format++;
 
-			if (*format == '\0')
-				return (-1);
-
 			if  (*format == '%')
 			{
 				_putchar('%');
@@ -41,7 +38,7 @@ int _printf(const char *format, ...)
 			{
 				str = va_arg(argument_list, char*);
 				if (str == NULL)
-					return (6);
+					return (-1);
 				while (*str)
 				{
 					_putchar(*str);
@@ -57,12 +54,12 @@ int _printf(const char *format, ...)
 				{
 					_putchar('-');
 					num = -num;
-					nb_printed++;
 				}
 				if (num == 0)
 				{
 					_putchar('0');
 					nb_printed++;
+					return (1);
 				}
 				index = 0;
 
