@@ -17,7 +17,7 @@ int _printf(const char *format, ...)
 
 	va_start(argument_list, format);
 /* Handling of % specifier */
-	while (*format != 0)
+	while (*format != '\0') /*Here we forgot to make a null character we had put 0 before*/
 	{
 		if (*format == '%')
 		{
@@ -41,7 +41,7 @@ int _printf(const char *format, ...)
 			{
 				str = va_arg(argument_list, char*);
 				if (str == NULL)
-					return (6);
+					return (-1);
 				while (*str)
 				{
 					_putchar(*str);

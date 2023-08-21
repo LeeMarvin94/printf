@@ -1,15 +1,31 @@
 #include"main.h"
 /**
+ * print_percent - print a pourcentage
+ * @argument_list: list of argument
+ * Return: number of char printed
+ */
+int print_percent(va_list argument_list)
+{
+	int nb_printed = 0;
+	(void)argument_list;
+
+	_putchar('%');
+	nb_printed++;
+	return (nb_printed);
+
+}
+/**
  * print_char - Handle %c specifier
  * @args: va_list containing the arguments
+ * Return: nulber of character printed
  */
 int  print_char(va_list args)
 {
 	char c = (char)va_arg(args, int);
 	int nb_printed = 0;
-
 	if (c == '\0')
 		return (-1);
+	
 	_putchar(c);
 	nb_printed++;
 	return (nb_printed);
@@ -17,12 +33,14 @@ int  print_char(va_list args)
 /**
  * print_string -function that print string
  * @argument_list: list of argument
+ * Return: nulber of character printed
  */
 int print_string(va_list argument_list)
 {
 	int nb_printed = 0;
 
 	char *s = va_arg(argument_list, char*);
+
 	if (s == NULL)
 		return (-1);
 	while (*s)
@@ -36,6 +54,7 @@ int print_string(va_list argument_list)
 /**
  * print_integer -handle %i and print integer
  * @args: va_list containing the arguments
+ * Return: nulber of character printed
  */
 
 int print_integer(va_list args)
@@ -44,7 +63,6 @@ int print_integer(va_list args)
 	int num = va_arg(args, int);
 	char digits[10];
 	int index;
-
 
 	if (num < 0)
 	{
@@ -76,21 +94,17 @@ int print_integer(va_list args)
 	return (nb_printed);
 }
 /**
- * _printf - produces output to a format + } =
- * @format: a caractere string
- * Return: Number of arguments printed
+ * format_checker- function that check for format and function corresponding
+ * @format: constant char contain string
+ * @argument_list: list of argument
+ * Return: nulber of character printed
  */
-int _printf(const char *format, ...)
+int format_checker(const char *format, va_list argument_list)
 {
 	int nb_printed = 0;
-	va_list argument_list;
 
-	if (!format || (format[0] == '%' && format[1] == '\0'))
-		return (-1);
-
-	va_start(argument_list, format);
-/* Handling of % specifier */
-	while (*format != 0)
+	while (*format != '\0') /*we forgot to make a null character*/
+				 /* we had put 0 before*/
 	{
 		if (*format == '%')
 		{
@@ -101,8 +115,7 @@ int _printf(const char *format, ...)
 
 			if  (*format == '%')
 			{
-				_putchar('%');
-				nb_printed++;
+				nb_printed = print_percent(argument_list);
 			}
 			else if (*format == 'c')
 			{
@@ -130,6 +143,26 @@ int _printf(const char *format, ...)
 		}
 		format++;
 	}
+	return (nb_printed);
+}
+/**
+ * _printf - produces output to a format + } =
+ * @format: a caractere string
+ * Return: Number of arguments printed
+ */
+int _printf(const char *format, ...)
+{
+	int nb_printed = 0;
+	va_list argument_list;
+
+
+	if (!format || (format[0] == '%' && format[1] == '\0'))
+		return (-1);
+
+	va_start(argument_list, format);
+/* Handling of % specifier */
+	nb_printed = format_checker(format, argument_list);
+
 	va_end(argument_list);
 	return (nb_printed);
 }
