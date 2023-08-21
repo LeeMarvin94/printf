@@ -11,8 +11,11 @@ int _printf(const char *format, ...)
 	char *str;
 	char digits[10];
 	va_list argument_list;
+	char *null = "(null)";
 
-	if (!format || (format[0] == '%' && format[1] == '\0'))
+	if (!format)
+		return (-1);
+	if (format[0] == '%' && (format[1] == '\0' || format[1] == '\0'))
 		return (-1);
 
 	va_start(argument_list, format);
@@ -26,7 +29,7 @@ int _printf(const char *format, ...)
 			if (*format == '\0')
 				return (-1);
 
-			if  (*format == '%')
+			if  (*format == '%' && *(format + 1) != '%')
 			{
 				_putchar('%');
 				nb_printed++;
@@ -41,7 +44,15 @@ int _printf(const char *format, ...)
 			{
 				str = va_arg(argument_list, char*);
 				if (str == NULL)
-					return (6);
+				{
+					while (*null)
+					{
+						_putchar(*null);
+						null++;
+					}
+					nb_printed += 6;
+					return (-1);
+				}
 				while (*str)
 				{
 					_putchar(*str);
