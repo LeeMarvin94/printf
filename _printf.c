@@ -23,6 +23,9 @@ int _printf(const char *format, ...)
 		{
 			format++;
 
+			if (*format == '\0')
+				return (-1);
+
 			if  (*format == '%')
 			{
 				_putchar('%');
@@ -38,7 +41,7 @@ int _printf(const char *format, ...)
 			{
 				str = va_arg(argument_list, char*);
 				if (str == NULL)
-					return (-1);
+					return (6);
 				while (*str)
 				{
 					_putchar(*str);
@@ -74,8 +77,6 @@ int _printf(const char *format, ...)
 					nb_printed++;
 				}
 			}
-			else if (*format == '\0')
-				return (-1);
 			else
 			{
 				_putchar('%');
