@@ -54,12 +54,12 @@ int _printf(const char *format, ...)
 				{
 					_putchar('-');
 					num = -num;
-					nb_printed++;
 				}
 				if (num == 0)
 				{
 					_putchar('0');
 					nb_printed++;
+					return (1);
 				}
 				index = 0;
 
@@ -74,8 +74,6 @@ int _printf(const char *format, ...)
 					nb_printed++;
 				}
 			}
-			else if (*format == '\0')
-				return (-1);
 			else
 			{
 				_putchar('%');
