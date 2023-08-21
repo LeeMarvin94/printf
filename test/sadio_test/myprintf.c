@@ -1,33 +1,19 @@
-#include"main.h"
-/**
- * print_percent - print a pourcentage
- * @argument_list: list of argument
- * Return: number of char printed
- */
-int print_percent(va_list argument_list)
-{
-	int nb_printed = 0;
-	(void)argument_list;
-
-	_putchar('%');
-	nb_printed++;
-	return (nb_printed);
-
-}
+#include "main.h"
 /**
  * print_char - Handle %c specifier
- * @args: va_list containing the arguments
+ * @argument_list: va_list containing the arguments
  * Return: nulber of character printed
  */
-int  print_char(va_list args)
+int  print_char(va_list argument_list)
 {
-	char c = (char)va_arg(args, int);
+	char c = (char)va_arg(argument_list, int);
 	int nb_printed = 0;
+
 	if (c == '\0')
 		return (-1);
-	
 	_putchar(c);
 	nb_printed++;
+
 	return (nb_printed);
 }
 /**
@@ -53,14 +39,14 @@ int print_string(va_list argument_list)
 }
 /**
  * print_integer -handle %i and print integer
- * @args: va_list containing the arguments
+ * @argument_list: va_list containing the arguments
  * Return: nulber of character printed
  */
 
-int print_integer(va_list args)
+int print_integer(va_list argument_list)
 {
 	int nb_printed = 0;
-	int num = va_arg(args, int);
+	int num = va_arg(argument_list, int);
 	char digits[10];
 	int index;
 
@@ -94,17 +80,48 @@ int print_integer(va_list args)
 	return (nb_printed);
 }
 /**
- * format_checker- function that check for format and function corresponding
- * @format: constant char contain string
- * @argument_list: list of argument
- * Return: nulber of character printed
+ * print_binary - Handle %b specifier (binary)
+ * @args: va_list containing the arguments
  */
-int format_checker(const char *format, va_list argument_list)
+int print_binary(va_list args)
+{
+	unsigned int num = va_arg(args, unsigned int);
+	int i, index;
+	int binary[32]; /* Max 32-bit integer*/
+	int nb_printed = 0;
+
+	if (num == 0)
+	{
+		_putchar('0');
+		nb_printed++;
+		return (1);
+	}
+	index = 0;
+
+	while (num > 0)
+	{
+		binary[index] = num % 2;
+		num /= 2;
+		index++;
+	}
+	for (i = index - 1; i >= 0; i--)
+	{
+		_putchar(binary[i] + '0');
+		nb_printed++;
+	}
+	return (nb_printed);
+}
+/**
+ * checker -checker format specifier and apply right function
+ * @argument_list: list of argument
+ * @format: string contain character to check
+ * Return: number of character to be printed
+ */
+int checker(const char *format, va_list argument_list)
 {
 	int nb_printed = 0;
 
-	while (*format != '\0') /*we forgot to make a null character*/
-				 /* we had put 0 before*/
+	while (*format != '\0') /*we change 0 to '\0'*/
 	{
 		if (*format == '%')
 		{
@@ -115,7 +132,8 @@ int format_checker(const char *format, va_list argument_list)
 
 			if  (*format == '%')
 			{
-				nb_printed = print_percent(argument_list);
+				_putchar('%');
+				nb_printed++;
 			}
 			else if (*format == 'c')
 			{
@@ -128,6 +146,10 @@ int format_checker(const char *format, va_list argument_list)
 			else if (*format == 'd' || *format == 'i')
 			{
 				nb_printed = print_integer(argument_list);
+			}
+			else if (*format == 'b')
+			{
+				nb_printed = print_binary(argument_list);
 			}
 			else
 			{
@@ -155,14 +177,13 @@ int _printf(const char *format, ...)
 	int nb_printed = 0;
 	va_list argument_list;
 
-
 	if (!format || (format[0] == '%' && format[1] == '\0'))
 		return (-1);
 
 	va_start(argument_list, format);
-/* Handling of % specifier */
-	nb_printed = format_checker(format, argument_list);
 
+	nb_printed = checker(format, argument_list);
+/* Handling of % specifier */
 	va_end(argument_list);
 	return (nb_printed);
 }
