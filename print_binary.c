@@ -11,6 +11,8 @@ int print_binary(va_list argument_list)
 	int binary[32]; /* Max 32-bit integer*/
 	int nb_printed = 0;
 
+	if (num < 1)
+		return (-1);
 	if (num == 0)
 	{
 		_putchar('0');
