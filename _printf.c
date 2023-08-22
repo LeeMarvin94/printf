@@ -55,34 +55,30 @@ int _printf(const char *format, ...)
 			{
 				num = va_arg(argument_list, int);
 
-				if (num <= INT_MAX && num >= INT_MIN)
+				if (num < 0)
 				{
-					if (num < 0)
-					{
-						_putchar('-');
-						num = -num;
-						nb_printed++;
-					}
-					if (num == 0)
-					{
-						_putchar('0');
-						nb_printed++;
-					}
-					index = 0;
-
-					while (num > 0)
-					{
-						digits[index++] = '0' + (num % 10);
-						num /= 10;
-					}
-					while (index > 0)
-					{
-						_putchar(digits[--index]);
-						nb_printed++;
-					}
+					_putchar('-');
+					num = -num;
+					nb_printed++;
 				}
-				else
-					return (-1);
+				if (num == 0)
+				{
+					_putchar('0');
+					nb_printed++;
+				}
+				index = 0;
+
+				while (num > 0)
+				{
+					digits[index++] = '0' + (num % 10);
+					num /= 10;
+				}
+				while (index > 0)
+				{
+					_putchar(digits[--index]);
+					nb_printed++;
+				}
+
 			}
 			else if (*format == 'b')
 			{
