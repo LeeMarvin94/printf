@@ -43,7 +43,6 @@ int _printf(const char *format, ...)
 				if (str == NULL)
 				{
 					str = "(null)";
-					return (-1);
 				}
 				while (*str)
 				{
