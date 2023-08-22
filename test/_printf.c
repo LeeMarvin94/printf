@@ -82,23 +82,7 @@ int _printf(const char *format, ...)
 			}
 			else if (*format == 'b')
 			{
-				nb_printed += print_binary(argument_list);
-			}
-			else if (*format == 'u')
-			{
-				nb_printed += print_unsigned(argument_list);
-			}
-			else if (*format == 'o')
-			{
-				nb_printed += print_octal(argument_list);
-			}
-			else if (*format == 'x')
-			{
-				nb_printed += print_hex(argument_list);
-			}
-			else if (*format == 'X')
-			{
-				nb_printed += print_hex_upper(argument_list);
+				nb_printed = print_binary(argument_list);
 			}
 			else
 			{
