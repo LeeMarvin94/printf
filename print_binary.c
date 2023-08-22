@@ -7,8 +7,8 @@
 int print_binary(va_list argument_list)
 {
 	unsigned int num = va_arg(argument_list, unsigned int);
-	int i, index;
-	int binary[32]; /* Max 32-bit integer*/
+	char *binary;
+	int temp, size, i;
 	int nb_printed = 0;
 
 	if (num == 0)
@@ -17,18 +17,32 @@ int print_binary(va_list argument_list)
 		nb_printed++;
 		return (1);
 	}
-	index = 0;
+	size = 0;
+	temp = num;
 
-	while (num > 0)
+	while (temp > 0)
 	{
-		binary[index] = num % 2;
-		num /= 2;
-		index++;
+		temp = temp / 2;
+		size++;
 	}
-	for (i = index - 1; i >= 0; i--)
+	binary = malloc((size + 1) * sizeof(char *));
+
+	if (binary == NULL)
 	{
-		_putchar(binary[i] + '0');
+		exit(1);
+	}
+	binary[size] = '\0';
+
+	for (i = size - 1; i >= 0; i--)
+	{
+		binary[i] = (num % 2) + '0';
+		num = num / 2;
+	}
+	for (i = 0; binary[i] != '\0'; i++)
+	{
+		_putchar(binary[i]);
 		nb_printed++;
 	}
+	free(binary);
 	return (nb_printed);
 }
