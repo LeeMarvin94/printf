@@ -2,6 +2,7 @@
 
 int print_hex(unsigned int num, unsigned int useUpperCase) 
 {
+    
     unsigned int hexDigits[8]; // Array to store individual hex digits
     unsigned int i, divisor, sum;
     char diff; // Difference between 'A' or 'a' and ':'
