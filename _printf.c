@@ -114,6 +114,6 @@ int _printf(const char *format, ...)
 		}
 		format++;
 	}
-	va_end(argument_list);
+	 va_end(argument_list);
 	return (nb_printed);
 }
